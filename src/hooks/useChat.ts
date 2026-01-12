@@ -1,4 +1,3 @@
-```typescript
 import { useState, useCallback } from 'react';
 
 export interface Message {
@@ -46,4 +45,4 @@ export const useChat = () => {
 
   return { messages, sendMessage, isLoading };
 };
-```
+
