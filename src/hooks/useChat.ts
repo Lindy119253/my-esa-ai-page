@@ -1,22 +1,18 @@
-// src/hooks/useChat.ts
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
+import { Message } from '../types/chat';
 import { openAIService } from '../services/ai/openai';
-
-export interface Message {
-  id: string;
-  content: string;
-  role: 'user' | 'assistant';
-  timestamp: Date;
-}
 
 export const useChat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const sendMessage = useCallback(async (userContent: string) => {
+  const sendMessage = useCallback(async (content: string) => {
+    if (!content.trim()) return;
+
+    // 添加用户消息
     const userMessage: Message = {
       id: Date.now().toString(),
-      content: userContent,
+      content: content.trim(),
       role: 'user',
       timestamp: new Date(),
     };
@@ -25,13 +21,19 @@ export const useChat = () => {
     setIsLoading(true);
 
     try {
-      const result = await openAIService.chatCompletion([
-        { role: 'user', content: userContent }
+      // 调用 AI 服务
+      const aiResponse = await openAIService.chatCompletion([
+        { 
+          role: 'system', 
+          content: '你是一个专业的编程助手，擅长代码分析和解释。请用专业但易懂的方式回答技术问题。' 
+        },
+        { role: 'user', content: content.trim() }
       ]);
-      
+
+      // 添加 AI 回复
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: result,
+        content: aiResponse,
         role: 'assistant',
         timestamp: new Date(),
       };
@@ -39,10 +41,29 @@ export const useChat = () => {
       setMessages(prev => [...prev, assistantMessage]);
     } catch (error) {
       console.error('发送消息失败:', error);
+      
+      // 添加错误消息
+      const errorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        content: '抱歉，处理您的消息时出现了问题。请稍后再试。',
+        role: 'assistant',
+        timestamp: new Date(),
+      };
+      
+      setMessages(prev => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
     }
   }, []);
 
-  return { messages, sendMessage, isLoading };
+  const clearMessages = useCallback(() => {
+    setMessages([]);
+  }, []);
+
+  return {
+    messages,
+    sendMessage,
+    isLoading,
+    clearMessages
+  };
 };
