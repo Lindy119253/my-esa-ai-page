@@ -1,35 +1,46 @@
-name: Deploy to ESA
+name: Build and Deploy
 
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
+    
     steps:
-      - uses: actions/checkout@v3
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-          cache: 'npm'
-          
-      - name: Install dependencies
-        run: npm ci
-        
-      - name: Run tests
-        run: npm run test
-        
-      - name: Build project
-        run: npm run build
-        env:
-          VITE_OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          
-      - name: Deploy to ESA
-        uses: aliyun/esa-deploy-action@v1
-        with:
-          access-key: ${{ secrets.ESA_ACCESS_KEY }}
-          secret-key: ${{ secrets.ESA_SECRET_KEY }}
-          dist-dir: dist
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Run tests
+      run: npm test
+    
+    - name: Build project
+      run: npm run build
+      env:
+        VITE_OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+    
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: dist
+        path: dist/
+    
+    # 这里可以添加自定义的部署步骤
+    # 比如通过FTP、SCP或其他方式上传到服务器
+    - name: Custom Deploy Step
+      if: github.ref == 'refs/heads/main'
+      run: |
+        echo "构建完成！"
+        echo "请手动部署到阿里云ESA，或配置自动化部署脚本"
+        ls -la dist/
