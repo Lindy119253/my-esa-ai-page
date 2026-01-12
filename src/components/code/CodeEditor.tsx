@@ -1,6 +1,5 @@
-! npm install @monaco-editor/react
+import React, { useCallback } from 'react';
 import Editor from '@monaco-editor/react';
-import { useCallback } from 'react';
 
 interface CodeEditorProps {
   code: string;
@@ -9,7 +8,7 @@ interface CodeEditorProps {
   readOnly?: boolean;
 }
 
-export const CodeEditor: React.FC<CodeEditorProps> = ({
+const CodeEditor: React.FC<CodeEditorProps> = ({
   code,
   language,
   onChange,
@@ -38,3 +37,5 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     </div>
   );
 };
+
+export default CodeEditor;
