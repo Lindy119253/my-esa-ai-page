@@ -6,8 +6,12 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "type-check": "tsc --noEmit",
+    "deploy:esa": "esa deploy --config esa.config.js",
+    "deploy:prepare": "chmod +x deploy-to-esa.sh && ./deploy-to-esa.sh",
+    "deploy:manual": "npm run build && npm run deploy:prepare"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -29,23 +33,5 @@
     "tailwindcss": "^3.3.6",
     "typescript": "^5.2.2",
     "vite": "^5.0.8"
-  }
-}
-
-{
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
-    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "type-check": "tsc --noEmit",
-    "deploy:esa": "esa deploy --config esa.config.js"
-  }
-}
-
-{
-  "scripts": {
-    "deploy:prepare": "chmod +x deploy-to-esa.sh && ./deploy-to-esa.sh",
-    "deploy:manual": "npm run build && npm run deploy:prepare"
   }
 }
