@@ -5,17 +5,33 @@ A beautiful, modern chatbot interface built with React, TypeScript, and Tailwind
 
 ## Features
 
-- ⚡ **🧠 Intelligent Code Understanding** - Repository-Level Analysis​ - Connect GitHub repos for AI to understand your entire project structure
-                                            - Real-time Code Completion​ - Context-aware intelligent code suggestions
-                                            - Code Quality Checking​ - Detect issues and provide optimization suggestions
-                                            - Cross-File Reference Analysis​ - Smart function call and dependency tracking
-- 🔧 **🚀 Performance Optimized** - ⚡ Edge Computing​ - Global low-latency access via Alibaba Cloud ESA edge nodes
-                                   - 🧩 Intelligent Caching​ - Vector similarity-based caching for faster responses
-                                   - 📱 Lightweight Architecture​ - Built with Vite for instant hot reloads and optimized builds
-- 🎯 **🎨 Modern Interface** - 🌙 Dark Theme​ - Developer-friendly dark interface
-                              - 📱 Fully Responsive​ - Perfect on desktop, tablet, and mobile
-                              - ⌨️ Keyboard Shortcuts​ - Extensive shortcuts for coding efficiency
-                              - 🎯 Advanced Syntax Highlighting​ - Integrated modern code editor
+- ⚡ **🧠 Intelligent Code Understanding**
+- Repository-Level Analysis​
+- Connect GitHub repos for AI to understand your entire project structure
+- Real-time Code Completion​
+- Context-aware intelligent code suggestions
+- Code Quality Checking​
+- Detect issues and provide optimization suggestions
+- Cross-File Reference Analysis​
+- Smart function call and dependency tracking
+
+- 🔧 **🚀 Performance Optimized**
+- ⚡ Edge Computing​
+- Global low-latency access via Alibaba Cloud ESA edge nodes
+- 🧩 Intelligent Caching​
+- Vector similarity-based caching for faster responses
+- 📱 Lightweight Architecture​
+- Built with Vite for instant hot reloads and optimized builds
+
+- 🎯 **🎨 Modern Interface**
+- 🌙 Dark Theme​
+- Developer-friendly dark interface
+- 📱 Fully Responsive​
+- Perfect on desktop, tablet, and mobile
+- ⌨️ Keyboard Shortcuts​
+- Extensive shortcuts for coding efficiency
+- 🎯 Advanced Syntax Highlighting​
+- Integrated modern code editor
   
 ## Getting Started
 
