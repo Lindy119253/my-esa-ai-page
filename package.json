@@ -42,3 +42,10 @@
     "deploy:esa": "esa deploy --config esa.config.js"
   }
 }
+
+{
+  "scripts": {
+    "deploy:prepare": "chmod +x deploy-to-esa.sh && ./deploy-to-esa.sh",
+    "deploy:manual": "npm run build && npm run deploy:prepare"
+  }
+}
