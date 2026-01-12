@@ -1,4 +1,6 @@
-import { useState, useCallback } from 'react';
+// src/hooks/useChat.ts
+import { useState } from 'react';
+import { openAIService } from '../services/ai/openai';
 
 export interface Message {
   id: string;
@@ -11,10 +13,10 @@ export const useChat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const sendMessage = useCallback(async (content: string) => {
+  const sendMessage = useCallback(async (userContent: string) => {
     const userMessage: Message = {
       id: Date.now().toString(),
-      content,
+      content: userContent,
       role: 'user',
       timestamp: new Date(),
     };
@@ -23,14 +25,13 @@ export const useChat = () => {
     setIsLoading(true);
 
     try {
-      // 模拟AI响应 - 后续替换为真实API
-      const response = await new Promise<string>(resolve => 
-        setTimeout(() => resolve(`这是对"${content}"的模拟响应`), 1000)
-      );
-
+      const result = await openAIService.chatCompletion([
+        { role: 'user', content: userContent }
+      ]);
+      
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: response,
+        content: result,
         role: 'assistant',
         timestamp: new Date(),
       };
@@ -45,10 +46,3 @@ export const useChat = () => {
 
   return { messages, sendMessage, isLoading };
 };
-
-import { openAIService } from '../services/ai/openai';
-
-// 在sendMessage函数中替换模拟响应：
-const response = await openAIService.chatCompletion([
-  { role: 'user', content: content }
-]);
