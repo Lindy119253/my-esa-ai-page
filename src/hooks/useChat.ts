@@ -46,3 +46,9 @@ export const useChat = () => {
   return { messages, sendMessage, isLoading };
 };
 
+import { openAIService } from '../services/ai/openai';
+
+// 在sendMessage函数中替换模拟响应：
+const response = await openAIService.chatCompletion([
+  { role: 'user', content: content }
+]);
