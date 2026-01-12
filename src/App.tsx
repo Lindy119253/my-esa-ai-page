@@ -9,7 +9,7 @@ function App() {
         <h1 className="text-xl font-bold">AI 代码助手</h1>
         <p className="text-sm text-gray-400">智能代码分析和编程助手</p>
       </header>
-      <main className="flex-1">
+      <main className="flex-1 h-full">
         <Chat />
       </main>
     </div>
