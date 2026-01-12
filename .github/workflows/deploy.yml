@@ -1,46 +1,64 @@
-name: Build and Deploy
+name: Deploy to Alibaba Cloud ESA
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4  # ✅ 使用 v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4  # ✅ 使用 v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build project
+        run: npm run build
+        env:
+          VITE_OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4  # ✅ 使用 v4
+        with:
+          name: dist
+          path: dist/
+          retention-days: 5
+
+      - name: Verify build
+        run: |
+          echo "构建完成！"
+          ls -la dist/
+          echo "文件数量: $(find dist -type f | wc -l)"
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
     
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-        cache: 'npm'
-    
-    - name: Install dependencies
-      run: npm ci
-    
-    - name: Run tests
-      run: npm test
-    
-    - name: Build project
-      run: npm run build
-      env:
-        VITE_OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-    
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: dist
-        path: dist/
-    
-    # 这里可以添加自定义的部署步骤
-    # 比如通过FTP、SCP或其他方式上传到服务器
-    - name: Custom Deploy Step
-      if: github.ref == 'refs/heads/main'
-      run: |
-        echo "构建完成！"
-        echo "请手动部署到阿里云ESA，或配置自动化部署脚本"
-        ls -la dist/
+      - name: Download artifacts
+        uses: actions/download-artifact@v4  # ✅ 使用 v4
+        with:
+          name: dist
+          path: dist
+
+      - name: List files for verification
+        run: ls -la dist/
+
+      - name: Notify deployment ready
+        run: |
+          echo "🚀 构建完成，准备部署到阿里云 ESA"
+          echo "请手动上传 dist/ 目录到 ESA 控制台"
