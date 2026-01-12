@@ -3,7 +3,14 @@ import { ChatMessage } from './ChatMessage';
 import { ChatInput } from './ChatInput';
 import { EmptyState } from './EmptyState';
 import { Message } from '../types/chat';
+// src/components/chat/Chat.tsx
+import React from 'react'; // 只保留这个
+import ChatMessage from './ChatMessage'; // 确保文件存在
+import ChatInput from './ChatInput'; // 确保文件存在
 
+export const Chat: React.FC = () => {
+  // ... 组件实现
+};
 export const Chat: FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
