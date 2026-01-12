@@ -7,17 +7,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        'chat-bg': '#343541',
-        'chat-sidebar': '#202123',
-        'chat-input': '#40414f',
-        'chat-border': '#565869',
-        'chat-text': '#ececf1',
-        'chat-text-secondary': '#c5c5d2',
-        'chat-green': '#10a37f',
-        'chat-hover': '#2a2b32',
-      },
-      animation: {
-        'pulse-slow': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'chat-bg': '#1a1a1a',
+        'chat-sidebar': '#1f2937',
+        'chat-input': '#374151',
       }
     },
   },
