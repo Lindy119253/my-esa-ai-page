@@ -1,8 +1,20 @@
-// src/components/chat/Chat.tsx
-import React from 'react'; // 只保留这个
-import ChatMessage from './ChatMessage'; // 确保文件存在
-import ChatInput from './ChatInput'; // 确保文件存在
+// 聊天相关类型定义
+export interface Message {
+  id: string;
+  content: string;
+  role: 'user' | 'assistant';
+  timestamp: Date;
+}
 
-export const Chat: React.FC = () => {
-  // ... 组件实现
-};
+export interface ChatInputProps {
+  value: string;
+  onChange: (value: string) => void;
+  onSend: () => void;
+  disabled?: boolean;
+  placeholder?: string;
+}
+
+export interface ChatMessageProps {
+  message: Message;
+  isCurrentUser?: boolean;
+}
