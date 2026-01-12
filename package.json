@@ -9,9 +9,8 @@
     "preview": "vite preview",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "type-check": "tsc --noEmit",
-    "deploy:esa": "esa deploy --config esa.config.js",
-    "deploy:prepare": "chmod +x deploy-to-esa.sh && ./deploy-to-esa.sh",
-    "deploy:manual": "npm run build && npm run deploy:prepare"
+    "test": "vitest",
+    "test:ui": "vitest --ui"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -32,6 +31,10 @@
     "postcss": "^8.4.32",
     "tailwindcss": "^3.3.6",
     "typescript": "^5.2.2",
-    "vite": "^5.0.8"
+    "vite": "^5.0.8",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/jest-dom": "^6.1.4",
+    "vitest": "^1.0.4",
+    "@vitest/ui": "^1.0.4"
   }
 }
